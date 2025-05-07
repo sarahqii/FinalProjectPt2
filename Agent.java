@@ -17,13 +17,15 @@ public class Agent {
     private PriorityQueue<Integer> unplayedAgents;
     private int agentNum;
     private double score;
-    private int k;
+    private double k;
     //0: coordinator and 1: defector
     private int mode;
-    private int b;
+    private double b;
     private double m;
+    //1 means active; 0 means dead
+    private int state;
 
-    public Agent(int index, int pairNum, int agentNum, int b, double m){
+    public Agent(int index, int pairNum, int agentNum, double b, double m){
         this.index = index;
         this.pairNum = pairNum;
         this.pairAgents = new PriorityQueue<>();
@@ -34,31 +36,38 @@ public class Agent {
         this.mode = 0;
         this.b = b;
         this.m = m;
+        state = 1;
     }
     
     public void pair(int i, Agent agenti){
         if(index == i){
             return;
         }
-        if(agenti.checkPair(index)){
-            pairNum++;
-            pairAgents.add(i);
-            unplayedAgents.add(i);
+        else if(checkPair(i)){
+            return;
+        }
+        else if(agenti.checkPair(index)){
+            addPairAgents(i);
         }
         else{
-            pairNum++;
-            pairAgents.add(i);
-            unplayedAgents.add(i);
-            agenti.getPairs().add(index);
-            agenti.getUnplayed().add(index);
+            addPairAgents(i);
+            agenti.addPairAgents(index);
         }
+    }
+    
+    public void addPairAgents(int i){
+        pairAgents.add(i);
+        unplayedAgents.add(i);
+        pairNum++;
+        k++;
     }
     
     public void play(int i, Agent agenti){
         int modei = agenti.getMode();
+        
         if(mode == 0 && modei == 0){
-            addScore(1/k);
-            agenti.addScore(1/(agenti.getK()));
+            addScore(1.0/k);
+            agenti.addScore(1.0/(agenti.getK()));
             removePlayed(i);
             agenti.removePlayed(index);
         }
@@ -74,7 +83,7 @@ public class Agent {
             removePlayed(i);
             agenti.removePlayed(index);
         }
-        else if(mode == 0 && modei == 0){
+        else if(mode == 1 && modei == 1){
             addScore(0);
             agenti.addScore(0);
             removePlayed(i);
@@ -86,8 +95,27 @@ public class Agent {
         while (!unplayedAgents.isEmpty()) {
         int i = unplayedAgents.poll(); 
         Agent agenti = network.getAgent(i); 
-        play(i, agenti); 
+        /*
+        System.out.println("I'm Agent " + index +", and I'm playing with Agent " + i);
+        System.out.print("I'm ");
+        if(getMode() == 0){
+                System.out.print("(C)");
+            }
+            else{
+                System.out.print("(D)");
+            }
+        System.out.print(", and he is ");
+        if(agenti.getMode() == 0){
+                System.out.print("(C)\n");
+            }
+            else{
+                System.out.print("(D)\n");
+            }
+        */
+        play(i, agenti);
+        //System.out.println("My score now is" + score);
     }
+        
     
     }
     
@@ -141,15 +169,19 @@ public class Agent {
         return index;
     }
     
-    public void addScore(double score){
-        this.score = score;
+    public void addScore(double newS){
+        score = score + newS;
+    }
+    
+    public void setScore(double newS){
+        score = newS;
     }
     
     public int getMode(){
         return mode;
     }
     
-    public int getK(){
+    public double getK(){
         return k;
     }
     
@@ -178,6 +210,13 @@ public class Agent {
         return score;
     }
    
+    public int getState(){
+        return state;
+    }
+    
+    public void setState(int i){
+        state = i;
+    }
     
     
 }
