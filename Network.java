@@ -106,6 +106,7 @@ public class Network {
         }
         return counter;
     }
+
     
     public int findMinK(){
         double min = 9999999;
@@ -151,6 +152,7 @@ public class Network {
         }
         
         else if((activeAgentNum == activeAgentNumPrevious) && checkStable()){
+            steadyPrint();
             return true;
         }
 
@@ -230,5 +232,51 @@ public class Network {
     
     public int getAgentNum(){
         return agentNum;
+    }
+    
+    public void steadyPrint(){
+        System.out.println("*Vertices " + activeAgentNum);
+        int counter = 1;
+        for(int i = 1; i <= agentNum; i++){
+            Agent agent = agents[i];
+            if(agent.getMode() == 1){
+                System.out.println(counter + " \"" + agent.getIndex() + "\"");
+                counter++;
+            }
+        }
+        int edgeCounter = 0;
+        for(int i = 1; i <= agentNum; i++){
+            Agent agent = agents[i];
+            PriorityQueue<Integer> pairs = agent.getPairs();
+            if(pairs.isEmpty()){
+                //System.out.println(agent.getIndex() + " -1");
+            }
+            else{
+                for(int pairedIndex: pairs){
+                    int index = agent.getIndex();
+                    if(index < pairedIndex){
+                        //System.out.println(index + " " + pairedIndex);
+                        edgeCounter++;
+                    }
+                }
+            }
+        }
+        System.out.println("*Edges " + edgeCounter);
+        for(int i = 1; i <= agentNum; i++){
+            Agent agent = agents[i];
+            PriorityQueue<Integer> pairs = agent.getPairs();
+            if(pairs.isEmpty()){
+                System.out.println(agent.getIndex() + " -1");
+            }
+            else{
+                for(int pairedIndex: pairs){
+                    int index = agent.getIndex();
+                    if(index < pairedIndex){
+                        System.out.println(index + " " + pairedIndex);
+                    }
+                }
+            }
+        }
+    
     }
 }
