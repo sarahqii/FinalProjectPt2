@@ -21,7 +21,8 @@ import java.util.*;
  * 
  */
 public class FinalProjectPartII {
-    public static void main(String[] args) throws Exception {                
+    public static void main(String[] args) throws Exception {
+        
         System.out.println("Welcome to the Agent-Agent Interactions");
         System.out.println("Please select an option from 1 to 17: ");
         Scanner in = new Scanner(System.in);
@@ -40,7 +41,7 @@ public class FinalProjectPartII {
                 T = 1;
                 m = 0.05;
                 network = createNtw("option1.txt", b, m, T);
-                runGame(network, b, m, T, h);
+                runGameRan(network, b, m, T, h);
                 break;
             case 2:
                 b = 2;
@@ -48,7 +49,7 @@ public class FinalProjectPartII {
                 T = 1;
                 m = 0.1;
                 network = createNtw("option2.txt", b, m, T);
-                runGame(network, b, m, T, h);
+                runGameRan(network, b, m, T, h);
                 break;
             case 3:
                 b = 2;
@@ -56,7 +57,7 @@ public class FinalProjectPartII {
                 T = 1;
                 m = 0.9;
                 network = createNtw("option3.txt", b, m, T);
-                runGame(network, b, m, T, h);
+                runGameRan(network, b, m, T, h);
                 break;
             case 4:
                 b = 2;
@@ -64,7 +65,7 @@ public class FinalProjectPartII {
                 T = 1;
                 m = 0.6;
                 network = createNtw("option4.txt", b, m, T);
-                runGame(network, b, m, T, h);
+                runGameRan(network, b, m, T, h);
                 break;
             case 5:
                 b = 2;
@@ -72,7 +73,7 @@ public class FinalProjectPartII {
                 T = 1;
                 m = 0.9;
                 network = createNtw("option5.txt", b, m, T);
-                runGame(network, b, m, T, h);
+                runGameRan(network, b, m, T, h);
                 break;
             case 6:
                 b = 2;
@@ -80,7 +81,7 @@ public class FinalProjectPartII {
                 T = 1;
                 m = 0.3;
                 network = createNtw("option6.txt", b, m, T);
-                runGame(network, b, m, T, h);
+                runGameRan(network, b, m, T, h);
                 break;
             case 7:
                 b = 2;
@@ -88,7 +89,7 @@ public class FinalProjectPartII {
                 T = 2;
                 m = 0.3;
                 network = createNtw("option7.txt", b, m, T);
-                runGame(network, b, m, T, h);
+                runGameRan(network, b, m, T, h);
                 break;
             case 8:
                 b = 2;
@@ -96,7 +97,7 @@ public class FinalProjectPartII {
                 T = 2;
                 m = 0.3;
                 network = createNtw("option7.txt", b, m, T);
-                runGame(network, b, m, T, h);
+                runGameRan(network, b, m, T, h);
                 break;
             case 9:
                 b = 2;
@@ -104,7 +105,7 @@ public class FinalProjectPartII {
                 T = 0.8;
                 m = 0.1;
                 network = createNtw("option9-16.txt", b, m, T);
-                runGame(network, b, m, T, h);
+                runGame2D4N(network, b, m, T, h);
                 break;
             case 10:
                 b = 2;
@@ -112,7 +113,7 @@ public class FinalProjectPartII {
                 T = 2;
                 m = 0.1;
                 network = createNtw("option9-16.txt", b, m, T);
-                runGame(network, b, m, T, h);
+                runGame2D4N(network, b, m, T, h);
                 break;
             case 11:
                 b = 2;
@@ -120,7 +121,7 @@ public class FinalProjectPartII {
                 T = 3;
                 m = 0.1;
                 network = createNtw("option9-16.txt", b, m, T);
-                runGame(network, b, m, T, h);
+                runGame2D4N(network, b, m, T, h);
                 break;
             case 12:
                 b = 2;
@@ -128,7 +129,7 @@ public class FinalProjectPartII {
                 T = 0.8;
                 m = 0.1;
                 network = createNtw("option9-16.txt", b, m, T);
-                runGame(network, b, m, T, h);
+                runGame2D4N(network, b, m, T, h);
                 break;
             case 13:
                 b = 3;
@@ -136,7 +137,7 @@ public class FinalProjectPartII {
                 T = 1.6;
                 m = 0.5;
                 network = createNtw("option9-16.txt", b, m, T);
-                runGame(network, b, m, T, h);
+                runGame2D4N(network, b, m, T, h);
                 break;
             case 14:
                 b = 1;
@@ -144,7 +145,7 @@ public class FinalProjectPartII {
                 T = 3;
                 m = 0.9;
                 network = createNtw("option9-16.txt", b, m, T);
-                runGame(network, b, m, T, h);
+                runGame2D4N(network, b, m, T, h);
                 break;
             case 15:
                 b = 1;
@@ -152,7 +153,7 @@ public class FinalProjectPartII {
                 T = 1;
                 m = 0.9;
                 network = createNtw("option9-16.txt", b, m, T);
-                runGame(network, b, m, T, h);
+                runGame2D4N(network, b, m, T, h);
                 break;
             case 16:
                 System.out.println("please input b: ");
@@ -173,7 +174,7 @@ public class FinalProjectPartII {
                     m = in.nextDouble();
                 }
                 network = createNtw("option9-16.txt", b, m, T);
-                runGame(network, b, m, T, h);
+                runGame2D4N(network, b, m, T, h);
                 break;
             case 17:
                 System.out.println("please input b: ");
@@ -194,9 +195,12 @@ public class FinalProjectPartII {
                 }
 
                 network = createNtw("option7.txt", b, m, T);
-                runGame(network, b, m, T, h);
+                runGameRan(network, b, m, T, h);
                 break;
         }
+
+
+
     }
     
     
@@ -239,13 +243,9 @@ public class FinalProjectPartII {
         System.out.println("The inital number of Agents is " + network.getAgentNum());
         System.out.println("Agent " + maxIndex + " has the largest k with k = " + network.getAgent(maxIndex).getK());
         System.out.println("Agent " + minIndex + " has the smallest k with k = " + network.getAgent(minIndex).getK());
-        System.out.println("Parameters:");
-        System.out.println("b = " + b + ", h = " + h + ", T = " + T + ", m = " + m);
         
         writer.println("Agent " + maxIndex + " has the largest k with k = " + network.getAgent(maxIndex).getK());
         writer.println("Agent " + minIndex + " has the smallest k with k = " + network.getAgent(minIndex).getK());
-        writer.println("Parameters:");
-        writer.println("b = " + b + ", h = " + h + ", T = " + T + ", m = " + m);
         
         int counter = 0;
         while(!network.checkEnd()){
@@ -266,8 +266,19 @@ public class FinalProjectPartII {
             writer.println("The percentage of eliminated agents is " + (eliminatedAgentNum / agentNum) * 100 + "%");
             //network.printState();
         }
-        
         writer.close();
         
+    }
+    
+    public static void runGame2D4N(Network network, double b, double m, double T, int h)throws Exception{
+        System.out.println("Parameters:");
+        System.out.println("b = " + b + ", h = " + h + ", T = " + T/4 + ", m = " + m);
+        runGame(network, b, m, T, h);
+    }
+    
+    public static void runGameRan(Network network, double b, double m, double T, int h)throws Exception{
+        System.out.println("Parameters:");
+        System.out.println("b = " + b + ", h = " + h + ", T = " + T + ", m = " + m);
+        runGame(network, b, m, T, h);
     }
 }
