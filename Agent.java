@@ -5,12 +5,11 @@
 package com.mycompany.finalprojectpartii;
 
 import java.util.*;
+/* Defines a single agent participating in pairwise networks.
+Each agent can switch strategies (cooperator or defector), track scores, learn from neighbors, and manage its own interaction network. */
 
-/**
- *
- * @author chenhenr
- */
 public class Agent {
+    // Agent properties
     private int index;
     private int pairNum;
     private TreeSet<Integer> pairAgents;
@@ -22,9 +21,9 @@ public class Agent {
     private int mode;
     private double b;
     private double m;
-    //1 means active; 0 means dead
+    // 1 means active; 0 means dead
     private int state;
-
+    // Constructor to initialize an agent
     public Agent(int index, int pairNum, int agentNum, double b, double m){
         this.index = index;
         this.pairNum = pairNum;
@@ -38,7 +37,7 @@ public class Agent {
         this.m = m;
         state = 1;
     }
-    
+    // Establishes a pairing with another agent, ensuring no duplicate connections
     public void pair(int i, Agent agenti){
         if(index == i){
             return;
@@ -54,14 +53,14 @@ public class Agent {
             agenti.addPairAgents(index);
         }
     }
-    
+    // Adds a paired agent to this agent's lists
     public void addPairAgents(int i){
         pairAgents.add(i);
         unplayedAgents.add(i);
         pairNum++;
         k++;
     }
-    
+    // Executes the payoff calculation when this agent interacts with another
     public void play(int i, Agent agenti){
         int modei = agenti.getMode();
         
@@ -90,7 +89,7 @@ public class Agent {
             agenti.removePlayed(index);
         }
     }
-    
+    // Plays with all unplayed agents in the current round
     public void playAll(Network network){
         while (!unplayedAgents.isEmpty()) {
         int i = unplayedAgents.pollFirst(); 
@@ -118,7 +117,7 @@ public class Agent {
         
     
     }
-    
+    // Attempts to learn the strategy from the highest scoring neighbor
     public void learnStrategy(Network network){
         Iterator<Integer> it = pairAgents.iterator();
         double maxScore = score;
@@ -140,31 +139,32 @@ public class Agent {
         }
     }
     
-    
+    // Utility to check if already paired with agent i
     public boolean checkPair (int i){
         return pairAgents.contains(i);
     }
+    // Returns the current agent instance
     public Agent getSelf(){
         return this;
     }
-    
+    // Returns the set of paired agent IDs
     public TreeSet<Integer> getPairs(){
         return pairAgents;
     }
-    
+    // Returns the set of unplayed agent IDs
     public TreeSet<Integer> getUnplayed(){
         return unplayedAgents;
     }
-    
+    // Resets unplayed agents to all paired agents
     public void refreshUnplayed(){
         unplayedAgents = new TreeSet<>(pairAgents);
     }
-    
+    // Removes an agent from the unplayed list after playing
     public void removePlayed(int i){
         unplayedAgents.remove(i);
     }
-    
 
+    // Accessor and mutator methods for various properties
     public int getIndex(){
         return index;
     }
