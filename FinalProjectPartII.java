@@ -5,22 +5,9 @@
 package com.mycompany.finalprojectpartii;
 import java.io.*;
 import java.util.*;
-/**
- *
- * @author chenhenr
- * 
- * 5.2 Update:
- * single agent play with single agent function;
- * single agent play with all agents function;
- * all agents play with all agents function (one round game);
- * eliminate and refresh after finish one round;
- * 
- * what to do next:
- * 1. learn the strategy from neighbors
- * 2. check end
- * 
- */
+// Main class for running the agent-based simulation with user interaction
 public class FinalProjectPartII {
+    // Main driver function providing a menu to run various predefined or custom simulations
     public static void main(String[] args) throws Exception {
         
         System.out.println("Welcome to the Agent-Agent Interactions");
@@ -201,9 +188,8 @@ public class FinalProjectPartII {
 
 
 
-    }
-    
-    
+    }    
+    // Creates a network by reading agent pairs from a file
     public static Network createNtw(String filename, double b, double m, double T) throws Exception{
         String st;
         int N = 0;
@@ -229,7 +215,7 @@ public class FinalProjectPartII {
         }
         return network;
     } 
-    
+    // Executes the simulation loop until the termination condition is met
     public static void runGame(Network network, double b, double m, double T, int h) throws Exception{
         network.initialDefector(h);
         //network.printState();
@@ -270,12 +256,14 @@ public class FinalProjectPartII {
         
     }
     
+    // Runs the simulation with specific labeling for 2D4N variant
     public static void runGame2D4N(Network network, double b, double m, double T, int h)throws Exception{
         System.out.println("Parameters:");
         System.out.println("b = " + b + ", h = " + h + ", T = " + T/4 + ", m = " + m);
         runGame(network, b, m, T, h);
     }
-    
+
+    // Runs the simulation with specific labeling for randomized variant
     public static void runGameRan(Network network, double b, double m, double T, int h)throws Exception{
         System.out.println("Parameters:");
         System.out.println("b = " + b + ", h = " + h + ", T = " + T + ", m = " + m);
