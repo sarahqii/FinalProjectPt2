@@ -13,8 +13,8 @@ import java.util.*;
 public class Agent {
     private int index;
     private int pairNum;
-    private PriorityQueue<Integer> pairAgents;
-    private PriorityQueue<Integer> unplayedAgents;
+    private TreeSet<Integer> pairAgents;
+    private TreeSet<Integer> unplayedAgents;
     private int agentNum;
     private double score;
     private double k;
@@ -28,8 +28,8 @@ public class Agent {
     public Agent(int index, int pairNum, int agentNum, double b, double m){
         this.index = index;
         this.pairNum = pairNum;
-        this.pairAgents = new PriorityQueue<>();
-        this.unplayedAgents = new PriorityQueue<>();
+        this.pairAgents = new TreeSet<>();
+        this.unplayedAgents = new TreeSet<>();
         this.agentNum = agentNum;
         this.score = 0;
         this.k = pairNum;
@@ -93,7 +93,7 @@ public class Agent {
     
     public void playAll(Network network){
         while (!unplayedAgents.isEmpty()) {
-        int i = unplayedAgents.poll(); 
+        int i = unplayedAgents.pollFirst(); 
         Agent agenti = network.getAgent(i); 
         /*
         System.out.println("I'm Agent " + index +", and I'm playing with Agent " + i);
@@ -148,16 +148,16 @@ public class Agent {
         return this;
     }
     
-    public PriorityQueue<Integer> getPairs(){
+    public TreeSet<Integer> getPairs(){
         return pairAgents;
     }
     
-    public PriorityQueue<Integer> getUnplayed(){
+    public TreeSet<Integer> getUnplayed(){
         return unplayedAgents;
     }
     
     public void refreshUnplayed(){
-        unplayedAgents = new PriorityQueue<>(pairAgents);
+        unplayedAgents = new TreeSet<>(pairAgents);
     }
     
     public void removePlayed(int i){
