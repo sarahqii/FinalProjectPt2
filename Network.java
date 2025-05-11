@@ -6,11 +6,9 @@ package com.mycompany.finalprojectpartii;
 
 import java.util.*;
 
-/**
- *
- * @author chenhenr
- */
+// Class representing a network of agents for simulation
 public class Network {
+    // Network state and parameters
     private Agent[] agents;
     private int agentNum;
     private int activeAgentNum;
@@ -22,6 +20,7 @@ public class Network {
     private double m;
     private double T;
     
+    // Constructor initializes the agent network with given parameters
     public Network(int agentNum, double b, double m, double T){
         this.agents = new Agent[agentNum + 1];
         for(int i = 1; i <= agentNum; i++){
@@ -38,15 +37,18 @@ public class Network {
         preModes = new int[agentNum + 1];
     }
     
+    // Marks agent h as a defector to start the simulation
     public void initialDefector(int h){
         Agent agent = getAgent(h);
         agent.switchMode();
     }
-    
+
+    // Returns the agent instance at index i
     public Agent getAgent(int i) {
         return agents[i];
     }
-    
+
+    // Runs a single round of interactions for all active agents
     public void playOneRound(){
         for (int i = 1; i <= agentNum; i++) {
         Agent agent = agents[i];
@@ -64,14 +66,16 @@ public class Network {
             agent.playAll(this);
         }
     }
-    
+
+    // All agents update their strategy by learning from neighbors
     public void AllLearnStrategy(){
         for (int i = 1; i <= agentNum; i++){
             Agent agent = agents[i];
             agent.learnStrategy(this);
         }
     }
-    
+
+    // Finds the agent with the highest degree (most connections)
     public int findMaxK(){
         double max = -1;
         int maxIndex = -1;
@@ -84,7 +88,8 @@ public class Network {
         }
         return maxIndex;
     }
-    
+
+    // Counts the number of cooperators
     public int getCNum(){
         int counter = 0;
         for(int i = 1; i <= agentNum; i++){
@@ -95,7 +100,8 @@ public class Network {
         }
         return counter;
     }
-    
+
+    // Counts the number of defectors
     public int getDNum(){
         int counter = 0;
         for(int i = 1; i <= agentNum; i++){
@@ -107,7 +113,7 @@ public class Network {
         return counter;
     }
 
-    
+    // Finds the agent with the lowest degree (fewest connections)
     public int findMinK(){
         double min = 9999999;
         int minIndex = -1;
@@ -121,7 +127,7 @@ public class Network {
         return minIndex;
     }
     
-    
+    // Eliminates agents that fail to meet the score threshold
     public void eliminate(){
         activeAgentNumPrevious = activeAgentNum;
         for (int i = 1; i <= agentNum; i++) {
@@ -142,7 +148,8 @@ public class Network {
             }
         }
     }
-    
+
+    // Checks whether the simulation should end
     public boolean checkEnd(){
         //System.out.println("Now active Agent Num is: "+activeAgentNum);
         //System.out.println("activeAgentNum: " + activeAgentNum);
@@ -163,8 +170,7 @@ public class Network {
         }
     }
     
-    
-    
+    // Prints all existing agent pairs
     public void printAllPairs(){
         for(int i = 1; i <= agentNum; i++){
             Agent agent = agents[i];
@@ -183,7 +189,7 @@ public class Network {
         }
     }
     
-    
+    // Prints all agents that still have at least one pair
     public void printResult(){
         for(int i = 1; i <= agentNum; i++){
             Agent agent = agents[i];
@@ -194,21 +200,25 @@ public class Network {
         }
     
     }
-    
+
+    // Records current agent strategies
     public void collectMode(){
         for (int i = 1; i <= agentNum; i++) {
         curModes[i] = agents[i].getMode();
         }
     }
-    
+
+    // Copies current strategies to previous state buffer
     public void copyToPreMode(){
         System.arraycopy(curModes, 0, preModes, 0, agentNum+1);
     }
-    
+
+    // Checks if agent strategies have stabilized
     public boolean checkStable(){
         return Arrays.equals(preModes, curModes);
     }
-    
+
+    // Prints detailed state information for debugging
     public void printState(){
         for(int i = 1; i <= agentNum; i++){
             Agent agent = agents[i];
@@ -227,15 +237,18 @@ public class Network {
             System.out.println("");
         }
     }
-    
+
+    // Returns number of active agents
     public int getActiveAgentNum(){
         return activeAgentNum;
     }
-    
+
+    // Returns total number of agents
     public int getAgentNum(){
         return agentNum;
     }
     
+    // Prints the stabilized network in the format
     public void steadyPrint(){
         System.out.println("*Vertices " + activeAgentNum);
         int counter = 1;
