@@ -151,8 +151,10 @@ public class Network {
             return true;
         }
         
-        else if((activeAgentNum == activeAgentNumPrevious) && checkStable()){
+        else if(checkStable()){
             steadyPrint();
+            //System.out.println(Arrays.toString(curModes));
+            //System.out.println(Arrays.toString(preModes));
             return true;
         }
 
@@ -166,7 +168,7 @@ public class Network {
     public void printAllPairs(){
         for(int i = 1; i <= agentNum; i++){
             Agent agent = agents[i];
-            PriorityQueue<Integer> pairs = agent.getPairs();
+            TreeSet<Integer> pairs = agent.getPairs();
             if(pairs.isEmpty()){
                 System.out.println(agent.getIndex() + " -1");
             }
@@ -210,7 +212,7 @@ public class Network {
     public void printState(){
         for(int i = 1; i <= agentNum; i++){
             Agent agent = agents[i];
-            PriorityQueue<Integer> pairs = agent.getPairs();
+            TreeSet<Integer> pairs = agent.getPairs();
             System.out.print(i);
             if(agent.getMode() == 0){
                 System.out.print("(C)");
@@ -239,7 +241,7 @@ public class Network {
         int counter = 1;
         for(int i = 1; i <= agentNum; i++){
             Agent agent = agents[i];
-            if(agent.getMode() == 1){
+            if(!agent.getPairs().isEmpty()){
                 System.out.println(counter + " \"" + agent.getIndex() + "\"");
                 counter++;
             }
@@ -247,11 +249,8 @@ public class Network {
         int edgeCounter = 0;
         for(int i = 1; i <= agentNum; i++){
             Agent agent = agents[i];
-            PriorityQueue<Integer> pairs = agent.getPairs();
-            if(pairs.isEmpty()){
-                //System.out.println(agent.getIndex() + " -1");
-            }
-            else{
+            TreeSet<Integer> pairs = agent.getPairs();
+            if(!pairs.isEmpty()){
                 for(int pairedIndex: pairs){
                     int index = agent.getIndex();
                     if(index < pairedIndex){
@@ -264,11 +263,8 @@ public class Network {
         System.out.println("*Edges " + edgeCounter);
         for(int i = 1; i <= agentNum; i++){
             Agent agent = agents[i];
-            PriorityQueue<Integer> pairs = agent.getPairs();
-            if(pairs.isEmpty()){
-                System.out.println(agent.getIndex() + " -1");
-            }
-            else{
+            TreeSet<Integer> pairs = agent.getPairs();
+            if(!pairs.isEmpty()){
                 for(int pairedIndex: pairs){
                     int index = agent.getIndex();
                     if(index < pairedIndex){
